@@ -36,6 +36,7 @@ class light_control(self,
     self.LED_duration = LED_duration
     self.LED_intervention = LED_intervention
     self.repeat = repeat_n
+    self.wait_time = (LED_duration + LED_intervention) * 2 * repeat_n
     
   def LED_run(self):
       for i in range(self.repeat):
