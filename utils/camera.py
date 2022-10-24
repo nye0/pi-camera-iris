@@ -32,7 +32,7 @@ class VideoCamera(object):
             os.makedirs(output_loc)
         self.vs = PiVideoStream((self.width, self.height), framerate=20).start()
         self.flip = flip # Flip frame vertically
-        self.file_type = file_type # image type i.e. .jpg
+        self.img_type = img_type # image type i.e. .jpg
         self.photo_string = photo_string # Name to save the photo
         if self.led_controler is not None:
             self.led_controler.IR_open()
