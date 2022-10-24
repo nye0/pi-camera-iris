@@ -12,12 +12,12 @@ from utils.iris_recognition import iris_recon_img
 from time import sleep
 import os
 
-pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
+
 lc = light_control(IR_dim=1, LED_dim=1, 
                    LED_duration=0.5, LED_intervention=2,
                    repeat_n=3)
 
-
+pi_camera = VideoCamera(flip=True, led_controler=lc, mask_fun=iris_recon_img) # flip pi camera if upside down.
 # App Globals (do not edit)
 app = Flask(__name__)
 
