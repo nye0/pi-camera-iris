@@ -23,7 +23,7 @@ def close_LED(pin, sleep_t=0):
   return pin
 
 
-class light_control(self):
+class light_control:
   def __init__(self, 
                IR_dim=1, LED_dim=1, 
                LED_duration=0.5, LED_intervention=2,
@@ -40,7 +40,6 @@ class light_control(self):
         for d in [L_LED, R_LED]:
           close_LED(open_LED(d, dim=self.LED_dim), sleep_t=self.LED_duration)
           sleep(self.LED_intervention)
-     return None
   
   def IR_open(self):
     open_LED(LR_IR, dim=self.IR_dim)
