@@ -28,7 +28,7 @@ class VideoCamera(object):
         self.mask_fun = mask_fun
         self.save_mask_loc = False
         self.led_controler = led_controler
-        if not os.path.exist(output_loc):
+        if not os.path.exists(output_loc):
             os.makedirs(output_loc)
         self.vs = PiVideoStream((self.width, self.height), framerate=20).start()
         self.flip = flip # Flip frame vertically
@@ -55,8 +55,9 @@ class VideoCamera(object):
         return frame
     
     def get_frame(self):
-        frame = self.add_mask(self.flip_if_needed(self.vs.read()))
+        frame = self.flip_if_needed(self.vs.read())
         ret, jpeg = cv.imencode(self.img_type, frame)
+        jpeg = self.add_mask(jpeg)
         self.previous_frame = jpeg
         return jpeg.tobytes()
 
