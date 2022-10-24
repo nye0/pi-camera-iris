@@ -41,9 +41,9 @@ def video_feed():
 @app.route('/picture')
 def take_picture():
     pi_camera.take_picture()
-    pi_camera.record_video(self, with_mask=True)
+    pi_camera.record_video(with_mask=True)
     sleep(lc.wait_time + 2)
-    pi_camera.record_video(self, with_mask=False)
+    pi_camera.record_video(with_mask=False)
     sleep(lc.wait_time)
     return "None"
 
