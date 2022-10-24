@@ -51,12 +51,12 @@ class VideoCamera(object):
     
     def add_mask(self, frame):
         if self.mask_fun is not None:
-            return mask_fun(frame, self.save_mask_loc)
+            return self.mask_fun(frame, self.save_mask_loc)
         return frame
     
     def get_frame(self):
         frame = self.add_mask(self.flip_if_needed(self.vs.read()))
-        ret, jpeg = cv.imencode(self.img_type, frame)
+        ret, jpeg = cv2.imencode(self.img_type, frame)
         #jpeg = self.add_mask(jpeg)
         self.previous_frame = jpeg
         return jpeg.tobytes()
@@ -68,7 +68,7 @@ class VideoCamera(object):
         file_name = str(self.photo_string + "_" + today_date + self.img_type)
         cv2.imwrite(os.path.join(self.output_loc, file_name), frame)    
         with open(os.path.join(self.output_loc, file_name)+'.txt', 'w') as f:
-            f.write('\n'.join([str(i) for i in mask_fun(frame, True)]))
+            f.write('\n'.join([str(i) for i in self.mask_fun(frame, True)]))
             
             
     def record_video(self, with_mask=False):
