@@ -66,9 +66,10 @@ class VideoCamera(object):
         frame = self.flip_if_needed(self.vs.read())
         today_date = datetime.now().strftime("%m%d%Y-%H%M%S") # get current time
         file_name = str(self.photo_string + "_" + today_date + self.img_type)
-        cv2.imwrite(os.path.join(self.output_loc, file_name), frame)    
-        with open(os.path.join(self.output_loc, file_name)+'.txt', 'w') as f:
-            f.write('\n'.join([str(i) for i in self.mask_fun(frame, True)]))
+        cv2.imwrite(os.path.join(self.output_loc, file_name), frame)  
+        if self.mask_fun is not None:
+            with open(os.path.join(self.output_loc, file_name)+'.txt', 'w') as f:
+                f.write('\n'.join([str(i) for i in self.mask_fun(frame, True)]))
             
             
     def record_video(self, with_mask=False):
