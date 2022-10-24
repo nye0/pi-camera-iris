@@ -30,12 +30,12 @@ class light_control(self,
   def __init__(self, 
                IR_dim=1, LED_dim=1, 
                LED_duration=0.5, LED_intervention=2,
-               repeat=3):
+               repeat_n=3):
     self.IR_dim = IR_dim
     self.LED_dim = LED_dim
     self.LED_duration = LED_duration
     self.LED_intervention = LED_intervention
-    self.repeat = repeat
+    self.repeat = repeat_n
     
   def LED_run(self):
       for i in range(self.repeat):
