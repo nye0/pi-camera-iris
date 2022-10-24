@@ -3,6 +3,8 @@
 #Desc: This web application serves a motion JPEG stream
 # main.py
 # import the necessary packages
+improt sys
+sys.path.append('.')
 from flask import Flask, render_template, Response, request, send_from_directory
 from utils.camera import VideoCamera
 from utils.LED_control import light_control
