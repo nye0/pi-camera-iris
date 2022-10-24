@@ -50,7 +50,7 @@ class VideoCamera(object):
         return frame
     
     def add_mask(self, frame):
-        if self.mask_fun not is None:
+        if self.mask_fun is not None:
             return mask_fun(frame, self.save_mask_loc)
         return frame
     
