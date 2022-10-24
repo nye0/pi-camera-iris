@@ -11,7 +11,7 @@ def inner_circle(img):
     :param img: cv2.imread() numpy.ndarrdy
     :return: 瞳孔霍夫圆参数 numpy.ndarray [x, y, r], left and right
     """
-
+    img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     img = cv2.medianBlur(img, 11)
     ret, img = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
     circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 2, 800,
