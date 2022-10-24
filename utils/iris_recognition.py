@@ -11,7 +11,7 @@ def inner_circle(img):
     :param img: cv2.imread() numpy.ndarrdy
     :return: 瞳孔霍夫圆参数 numpy.ndarray [x, y, r], left and right
     """
-    img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.medianBlur(img, 11)
     ret, img = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
     circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 2, 800,
@@ -31,7 +31,7 @@ def iris_recon_img(img, save_mask_loc):
         right_iris, left_iris = inner_circle(img)
     except:
         pass
-    cimg = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    cimg = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
     cimg = displayCircle(cimg, right_iris[0], right_iris[1], right_iris[2])
     cimg = displayCircle(cimg, left_iris[0], left_iris[1], left_iris[2])
     print(right_iris[2], left_iris[2])
