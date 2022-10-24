@@ -4,10 +4,17 @@
 # main.py
 # import the necessary packages
 from flask import Flask, render_template, Response, request, send_from_directory
-from camera import VideoCamera
+from utils.camera import VideoCamera
+from utils.LED_control import light_control
+from utils.iris_recognition import iris_recon_img
+from time import sleep
 import os
 
 pi_camera = VideoCamera(flip=False) # flip pi camera if upside down.
+lc = light_control(IR_dim=1, LED_dim=1, 
+                   LED_duration=0.5, LED_intervention=2,
+                   repeat_n=3)
+
 
 # App Globals (do not edit)
 app = Flask(__name__)
@@ -32,6 +39,10 @@ def video_feed():
 @app.route('/picture')
 def take_picture():
     pi_camera.take_picture()
+    pi_camera.record_video(self, with_mask=True)
+    sleep(lc.wait_time + 2)
+    pi_camera.record_video(self, with_mask=False)
+    sleep(lc.wait_time)
     return "None"
 
 if __name__ == '__main__':
