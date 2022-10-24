@@ -55,9 +55,9 @@ class VideoCamera(object):
         return frame
     
     def get_frame(self):
-        frame = self.flip_if_needed(self.vs.read())
+        frame = self.add_mask(self.flip_if_needed(self.vs.read()))
         ret, jpeg = cv.imencode(self.img_type, frame)
-        jpeg = self.add_mask(jpeg)
+        #jpeg = self.add_mask(jpeg)
         self.previous_frame = jpeg
         return jpeg.tobytes()
 
