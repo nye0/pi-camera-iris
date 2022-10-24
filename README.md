@@ -86,3 +86,8 @@ View the latest Build: [Pi Smart Cam with Motion Sensor](https://github.com/Eben
 
 Alternatively, view more projects that build on the Pi Camera on [smartbuilds.io](https://smartbuilds.io).
 
+# TODO
+1. Set up WIFI-AP, make pi connectable
+2. add distance model
+3. add deep learning model for percise iris segment.
+
