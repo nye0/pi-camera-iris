@@ -26,7 +26,11 @@ def add_circle(img, inner_x, inner_y, inner_r):
     return img
 
 def iris_recon_img(img, save_mask_loc):
-    right_iris, left_iris = inner_circle(img)
+    right_iris = left_iris = [0, 0, 0]
+    try:
+        right_iris, left_iris = inner_circle(img)
+    except:
+        pass
     cimg = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     cimg = displayCircle(cimg, right_iris[0], right_iris[1], right_iris[2])
     cimg = displayCircle(cimg, left_iris[0], left_iris[1], left_iris[2])
