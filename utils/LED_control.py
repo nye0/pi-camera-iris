@@ -23,10 +23,7 @@ def close_LED(pin, sleep_t=0):
   return pin
 
 
-class light_control(self,
-                    IR_dim=1, LED_dim=1, 
-                    LED_duration=0.5, LED_intervention=2,
-                    repeat=3):
+class light_control(self):
   def __init__(self, 
                IR_dim=1, LED_dim=1, 
                LED_duration=0.5, LED_intervention=2,
