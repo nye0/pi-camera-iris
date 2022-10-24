@@ -23,16 +23,29 @@ def close_LED(pin, sleep_t=0):
   return pin
 
 
-def control(start_key, 
+class light_control(self, 
             IR_dim=1, LED_dim=1, 
             LED_duration=0.5, LED_intervention=2,
             repeat=3):
-  total_t = (LED_duration + LED_intervention) * 2 * repeat
-  if start_key:
-    open_LED(LR_IR, dim=IR_dim)
-    for i in range(repeat):
-      for d in [L_LED, R_LED]:
-        close_LED(open_LED(d, dim=LED_dim), sleep_t=LED_duration)
-        sleep(LED_intervention)
+  def __init__(self, 
+               IR_dim=1, LED_dim=1, 
+               LED_duration=0.5, LED_intervention=2,
+               repeat=3):
+    self.IR_dim = IR_dim
+    self.LED_dim = LED_dim
+    self.LED_duration = LED_duration
+    self.LED_intervention = LED_intervention
+    self.repeat = repeat
+    
+  def LED_run(self):
+      for i in range(self.repeat):
+        for d in [self.L_LED, self.R_LED]:
+          close_LED(open_LED(d, dim=self.LED_dim), sleep_t=self.LED_duration)
+          sleep(self.LED_intervention)
+     return None
+  
+  def IR_open(self):
+    open_LED(LR_IR, dim=self.IR_dim)
+   
+  def IR_close(self):
     close_LED(LR_IR)
-   return total_t
