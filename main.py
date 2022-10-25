@@ -3,7 +3,7 @@
 #Desc: This web application serves a motion JPEG stream
 # main.py
 # import the necessary packages
-improt sys
+import sys
 sys.path.append('.')
 from flask import Flask, render_template, Response, request, send_from_directory
 from utils.camera import VideoCamera
@@ -12,12 +12,12 @@ from utils.iris_recognition import iris_recon_img
 from time import sleep
 import os
 
-
-lc = light_control(IR_dim=1, LED_dim=1, 
+lc = light_control(IR_dim=False, LED_dim=False, 
                    LED_duration=0.5, LED_intervention=2,
                    repeat_n=3)
 
-pi_camera = VideoCamera(flip=True, led_controler=lc, mask_fun=iris_recon_img) # flip pi camera if upside down.
+pi_camera = VideoCamera(flip=True, led_controler=lc, mask_fun=iris_recon_img)
+
 # App Globals (do not edit)
 app = Flask(__name__)
 
@@ -41,10 +41,7 @@ def video_feed():
 @app.route('/picture')
 def take_picture():
     pi_camera.take_picture()
-    pi_camera.record_video(with_mask=True)
-    sleep(lc.wait_time + 2)
-    pi_camera.record_video(with_mask=False)
-    sleep(lc.wait_time)
+    pi_camera.record_video()
     return "None"
 
 if __name__ == '__main__':

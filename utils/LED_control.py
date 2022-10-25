@@ -3,15 +3,17 @@ from time import sleep
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 L_LED = 11
-LR_IR = 12
+R_IR = 12
+L_IR = 16
 R_LED = 35
 
 
 def open_LED(pin, dim=False):
   GPIO.setup(pin, GPIO.OUT)
   if dim:
+    # not work! 
     pwm = GPIO.PWM(pin, 100)
-    pwm.start(100 * dim)
+    pwm.start(pin, 100 * dim)
   else:
     GPIO.output(pin, GPIO.HIGH)
   return pin
@@ -23,9 +25,9 @@ def close_LED(pin, sleep_t=0):
   return pin
 
 
-class light_control:
+class light_control: 
   def __init__(self, 
-               IR_dim=1, LED_dim=1, 
+               IR_dim=False, LED_dim=False, 
                LED_duration=0.5, LED_intervention=2,
                repeat_n=3):
     self.IR_dim = IR_dim
@@ -41,8 +43,14 @@ class light_control:
           close_LED(open_LED(d, dim=self.LED_dim), sleep_t=self.LED_duration)
           sleep(self.LED_intervention)
   
+  def clean_up(self):
+      for d in [L_LED, R_LED]:
+        close_LED(d)
+
   def IR_open(self):
-    open_LED(LR_IR, dim=self.IR_dim)
-   
+    open_LED(L_IR, dim=self.IR_dim)
+    open_LED(R_IR, dim=self.IR_dim)
+
   def IR_close(self):
-    close_LED(LR_IR)
+    close_LED(L_IR)
+    close_LED(R_IR)

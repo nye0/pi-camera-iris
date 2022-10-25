@@ -6,16 +6,11 @@ import cv2
 
 
 def inner_circle(img):
-    """
-    内圆检测
-    :param img: cv2.imread() numpy.ndarrdy
-    :return: 瞳孔霍夫圆参数 numpy.ndarray [x, y, r], left and right
-    """
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img = cv2.medianBlur(img, 11)
-    ret, img = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY)
-    circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 2, 800,
-                               param1=110, param2=20, minRadius=10, maxRadius=100)
+    #img = cv2.medianBlur(img, 11)
+    ret, img = cv2.threshold(img, 25, 60, cv2.THRESH_BINARY)
+    circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, 2, 100,
+                               param1=110, param2=20, minRadius=10, maxRadius=30)
     circles = np.int16(np.around(circles))
     circles[0, :, 2] += 3
     return circles[0][0], circles[0][1]
@@ -31,15 +26,16 @@ def iris_recon_img(img, save_mask_loc):
         right_iris, left_iris = inner_circle(img)
     except:
         pass
-    cimg = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
-    cimg = displayCircle(cimg, right_iris[0], right_iris[1], right_iris[2])
-    cimg = displayCircle(cimg, left_iris[0], left_iris[1], left_iris[2])
-    print(right_iris[2], left_iris[2])
+    img = cv2.cvtColor(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
+    img = add_circle(img, right_iris[0], right_iris[1], right_iris[2])
+    img = add_circle(img, left_iris[0], left_iris[1], left_iris[2])
+    if right_iris[2] != 0 or left_iris[2] != 0:
+        print(right_iris[2], left_iris[2])
     
     if save_mask_loc:
         return right_iris, left_iris
     else:
-        return cimg
+        return img
 
     
     
