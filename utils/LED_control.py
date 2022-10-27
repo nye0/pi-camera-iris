@@ -1,5 +1,10 @@
+#!/usr/bin/python3
 import RPi.GPIO as GPIO
 from time import sleep
+import sys
+
+
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 L_LED = 11
@@ -34,13 +39,15 @@ class light_control:
     self.LED_dim = LED_dim
     self.LED_duration = LED_duration
     self.LED_intervention = LED_intervention
-    self.repeat = repeat_n
+    self.repeat_n = repeat_n
     self.wait_time = (LED_duration + LED_intervention) * 2 * repeat_n
     
   def LED_run(self):
-      for i in range(self.repeat):
-        for d in [L_LED, R_LED]:
+      for i in range(self.repeat_n):
+        for d,dr in [(L_LED, L_IR), (R_LED, R_IR)]:
+          #close_LED(dr)
           close_LED(open_LED(d, dim=self.LED_dim), sleep_t=self.LED_duration)
+          #open_LED(dr, dim=self.IR_dim)
           sleep(self.LED_intervention)
   
   def clean_up(self):
@@ -54,3 +61,16 @@ class light_control:
   def IR_close(self):
     close_LED(L_IR)
     close_LED(R_IR)
+
+if __name__ == '__main__':
+    LED_duration_use=float(sys.argv[1])
+    LED_intervention_use=float(sys.argv[2])
+    repeat_n_use=int(sys.argv[3])   
+    lc = light_control(LED_duration=LED_duration_use, 
+            LED_intervention=LED_intervention_use, 
+            repeat_n=repeat_n_use)
+    lc.clean_up()
+    lc.IR_open()
+    sleep(5)
+    lc.LED_run()
+    lc.IR_close()

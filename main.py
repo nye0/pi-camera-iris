@@ -13,7 +13,7 @@ from time import sleep
 import os
 
 lc = light_control(IR_dim=False, LED_dim=False, 
-                   LED_duration=0.5, LED_intervention=2,
+                   LED_duration=1, LED_intervention=3,
                    repeat_n=3)
 
 pi_camera = VideoCamera(flip=True, led_controler=lc, mask_fun=iris_recon_img)
@@ -40,8 +40,8 @@ def video_feed():
 # Take a photo when pressing camera button
 @app.route('/picture')
 def take_picture():
-    pi_camera.take_picture()
-    pi_camera.record_video()
+    pi_camera.take_picture_record()
+    exit()
     return "None"
 
 if __name__ == '__main__':
