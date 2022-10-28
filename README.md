@@ -2,6 +2,12 @@
 
 Create your own live stream from a Raspberry Pi using the Pi camera module. Build your own applications from here.
 
+# Updated
+Set pi as wifi hotspot.
+ref: https://github.com/cilynx/rtl88x2bu
+* note1:  run: `sudo apt install --reinstall raspberrypi-kernel raspberrypi-kernel-headers` to update the kernel to the latest.
+* when set up the Routed Wireless Access Point: Connect your Raspberry Pi with **Ethernet network**, remove the wifi first!
+
 ## How it works
 The Pi streams the output of the camera module over the web via Flask. Devices connected to the same network would be able to access the camera stream via
 
