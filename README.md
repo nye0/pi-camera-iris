@@ -97,4 +97,3 @@ Alternatively, view more projects that build on the Pi Camera on [smartbuilds.io
 2. add distance model
 3. add deep learning model for percise iris segment.
 
-<img width="182" alt="image" src="https://user-images.githubusercontent.com/66538912/223140698-09b84ea0-1fe2-4124-80ee-874de75a3abd.png">
